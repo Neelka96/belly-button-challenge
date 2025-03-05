@@ -1,0 +1,7 @@
+# Custom Written .gitignore
+
+---
+
+
+# MacOS Dir Config File
+.DS_Store
