@@ -1,84 +1,92 @@
-// Build the metadata panel
-function buildMetadata(sample) {
-  d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
+// // Build the metadata panel
+// function buildMetadata(sample, json) {
+//   d3.json(json).then((data) => {
 
-    // get the metadata field
-
-
-    // Filter the metadata for the object with the desired sample number
+//     // get the metadata field
 
 
-    // Use d3 to select the panel with id of `#sample-metadata`
+//     // Filter the metadata for the object with the desired sample number
 
 
-    // Use `.html("") to clear any existing metadata
+//     // Use d3 to select the panel with id of `#sample-metadata`
 
 
-    // Inside a loop, you will need to use d3 to append new
-    // tags for each key-value in the filtered metadata.
-
-  });
-}
-
-// function to build both charts
-function buildCharts(sample) {
-  d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
-
-    // Get the samples field
+//     // Use `.html("") to clear any existing metadata
 
 
-    // Filter the samples for the object with the desired sample number
+//     // Inside a loop, you will need to use d3 to append new
+//     // tags for each key-value in the filtered metadata.
+
+//     }
+//   );
+// }
+
+// // function to build both charts
+// function buildCharts(sample, json) {
+//   d3.json(json).then((data) => {
+
+//     // Get the samples field
 
 
-    // Get the otu_ids, otu_labels, and sample_values
+//     // Filter the samples for the object with the desired sample number
 
 
-    // Build a Bubble Chart
+//     // Get the otu_ids, otu_labels, and sample_values
 
 
-    // Render the Bubble Chart
+//     // Build a Bubble Chart
 
 
-    // For the Bar Chart, map the otu_ids to a list of strings for your yticks
+//     // Render the Bubble Chart
 
 
-    // Build a Bar Chart
-    // Don't forget to slice and reverse the input data appropriately
+//     // For the Bar Chart, map the otu_ids to a list of strings for your yticks
 
 
-    // Render the Bar Chart
+//     // Build a Bar Chart
+//     // Don't forget to slice and reverse the input data appropriately
 
-  });
-}
+
+//     // Render the Bar Chart
+
+//     }
+//   );
+// }
 
 // Function to run on page load
 function init() {
-  d3.json("https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json").then((data) => {
+  const url = 'https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json' 
+  d3.json(url).then(data => {
 
     // Get the names field
-
+    let names = data.names;
 
     // Use d3 to select the dropdown with id of `#selDataset`
-
+    let dropDown = d3.select('#selDataset');
 
     // Use the list of sample names to populate the select options
     // Hint: Inside a loop, you will need to use d3 to append a new
     // option for each sample name.
 
+    for (let i = 0; i < names.length; i++) {
+      let name = names[i];
+      dropDown.append('option').text(name);
+    }
 
     // Get the first sample from the list
-
+    let firstSample = names[0];
 
     // Build charts and metadata panel with the first sample
-
-  });
+    
+    }
+  );
 }
 
-// Function for event listener
-function optionChanged(newSample) {
-  // Build charts and metadata panel each time a new sample is selected
+// // Function for event listener
+// function optionChanged(newSample) {
+//   // Build charts and metadata panel each time a new sample is selected
 
-}
+// }
 
 // Initialize the dashboard
 init();
