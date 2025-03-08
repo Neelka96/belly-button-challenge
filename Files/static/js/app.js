@@ -45,7 +45,7 @@ function barChart(arr, params) {
   // Get the otu_ids, otu_labels, and sample_values
   let ids = arr.otu_ids;
   let values = arr.sample_values;
-  let labels = arr.otu_labels;
+  // let labels = arr.otu_labels;
 
   // Build a Bar Chart
   let bar_trace = {
@@ -53,7 +53,7 @@ function barChart(arr, params) {
     y: ids.map(id => `OTU ${id}`).slice(0, 10).reverse(),  // Mapping IDs to string & matching x-axis
     type: 'bar',
     orientation: 'h',
-    text: labels
+    // text: labels
   };
 
   // Build Bar Chart Layout
@@ -65,7 +65,8 @@ function barChart(arr, params) {
       title: {text: 'Number of Bacteria'}
     }
   };
-
+  params.displayModeBar = false;
+  
   // Render the Bar Chart
   Plotly.newPlot('bar', [bar_trace], bar_layout, params);
 };
