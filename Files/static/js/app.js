@@ -5,7 +5,7 @@
 // -------------------
 
 // BUBBLE CHART BUILD
-function bubbleChart(arr) {
+function bubbleChart(arr, params) {
   // Get the otu_ids, otu_labels, and sample_values
   let ids = arr.otu_ids;
   let values = arr.sample_values;
@@ -36,17 +36,12 @@ function bubbleChart(arr) {
     }
   };
 
-  // Additional Parameters
-  let params = {
-    responsive: true
-  }
-
   // Render the Bubble Chart
   Plotly.newPlot('bubble', [bubble_trace], bubble_layout, params);
 };
 
 // BAR CHART BUILD
-function barChart(arr) {
+function barChart(arr, params) {
   // Get the otu_ids, otu_labels, and sample_values
   let ids = arr.otu_ids;
   let values = arr.sample_values;
@@ -70,11 +65,6 @@ function barChart(arr) {
       title: {text: 'Number of Bacteria'}
     }
   };
-
-  // Additional Parameters
-  let params = {
-    responsive: true
-  }
 
   // Render the Bar Chart
   Plotly.newPlot('bar', [bar_trace], bar_layout, params);
@@ -123,8 +113,15 @@ function buildCharts(sampleNum, json) {
       });
       sample = sample[0];
 
-      barChart(sample);
-      bubbleChart(sample);
+    // Additional Parameters
+    let params = {
+      responsive: true,
+      modeBarButtonsToRemove: ['lasso2d', 'select2d'],
+
+    }
+
+      barChart(sample, params);
+      bubbleChart(sample, params);
     }
   )
 };
