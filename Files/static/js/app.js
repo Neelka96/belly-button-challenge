@@ -36,8 +36,13 @@ function bubbleChart(arr) {
     }
   };
 
+  // Additional Parameters
+  let params = {
+    responsive: true
+  }
+
   // Render the Bubble Chart
-  Plotly.newPlot('bubble', [bubble_trace], bubble_layout);
+  Plotly.newPlot('bubble', [bubble_trace], bubble_layout, params);
 };
 
 // BAR CHART BUILD
@@ -45,7 +50,7 @@ function barChart(arr) {
   // Get the otu_ids, otu_labels, and sample_values
   let ids = arr.otu_ids;
   let values = arr.sample_values;
-  // let labels = arr.otu_labels;
+  let labels = arr.otu_labels;
 
   // Build a Bar Chart
   let bar_trace = {
@@ -53,7 +58,7 @@ function barChart(arr) {
     y: ids.map(id => `OTU ${id}`).slice(0, 10).reverse(),  // Mapping IDs to string & matching x-axis
     type: 'bar',
     orientation: 'h',
-    // text: labels
+    text: labels
   };
 
   // Build Bar Chart Layout
@@ -66,8 +71,13 @@ function barChart(arr) {
     }
   };
 
+  // Additional Parameters
+  let params = {
+    responsive: true
+  }
+
   // Render the Bar Chart
-  Plotly.newPlot('bar', [bar_trace], bar_layout);
+  Plotly.newPlot('bar', [bar_trace], bar_layout, params);
 };
 
 
@@ -137,7 +147,6 @@ function init() {
     // Use the list of sample names to populate the select options
     // Hint: Inside a loop, you will need to use d3 to append a new
     // option for each sample name.
-
     for (let i = 0; i < names.length; i++) {
       let name = names[i];
       dropDown.append('option').text(name);
