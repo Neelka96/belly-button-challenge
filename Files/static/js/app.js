@@ -41,8 +41,8 @@ function buildCharts(sampleNum, json) {
 
     // Get the otu_ids, otu_labels, and sample_values
     let ids = sample.otu_ids;
-    let labels = sample.otu_labels;
     let values = sample.sample_values;
+    let labels = sample.otu_labels;
 
     // Build a Bubble Chart
     let bubble_trace = {
@@ -55,9 +55,8 @@ function buildCharts(sampleNum, json) {
       },
       text: labels
     };
-    let bubble_traces = [bubble_trace];
 
-    // Render the Bubble Chart
+    // Build Bubble Chart Layout
     let bubble_layout = {
       title: {
         text: 'Bacteria Cultures Per Sample'
@@ -69,33 +68,36 @@ function buildCharts(sampleNum, json) {
         title: {text: 'Number of Bacteria'}
       }
     };
-    
-    Plotly.newPlot('bubble', bubble_traces, bubble_layout);
 
-    // For the Bar Chart, map the otu_ids to a list of strings for your yticks
-    // ---
-    // Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
-    // Use sample_values as the values for the bar chart.
-    // Use otu_ids as the labels for the bar chart.
-    // Use otu_labels as the hovertext for the chart.
-    let bar_trace = {
-      x: values,
-      y: ids,
-      type: 'bar',
-      // mode: ,
-      // marker: {
+    // Render the Bubble Chart
+    Plotly.newPlot('bubble', [bubble_trace], bubble_layout);
 
-      // },
-      orientation: 'h',
-      text: labels
-    };
-    let bar_traces = [bar_trace];
     // Build a Bar Chart
     // Don't forget to slice and reverse the input data appropriately
+    // For the Bar Chart, map the otu_ids to a list of strings for your yticks
 
+    let bar_trace = {
+      x: values.slice(0, 10).reverse(),
+      y: ids.map(id => `OTU ${id}`).slice(0, 10).reverse(),
+      type: 'bar',
+      marker: {
+        color: ''
+      },
+      orientation: 'h',
+    };
+
+    // Build Bar Chart Layout
+    let bar_layout = {
+      title: {
+        text: 'Top 10 Bacteria Cultures Found'
+      },
+      xaxis: {
+        title: {text: 'Number of Bacteria'}
+      }
+    };
 
     // Render the Bar Chart
-    Plotly.newPlot('bar', bar_traces)
+    Plotly.newPlot('bar', [bar_trace], bar_layout);
     }
   );
 }
