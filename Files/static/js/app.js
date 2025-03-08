@@ -17,12 +17,8 @@ function buildMetadata(sampleNum, json) {
       panel.html('');
 
       // Inside a loop, you will need to use d3 to append new
-      // tags for each key-value in the filtered metadata.
-      metadata = metadata[0]; // Correct for array resulting from filter
-      
-      let iter = Object.entries(metadata);
-      // TODO: CONDENSE LATER
-      for(let [key, value] of iter) {
+      // tags for each key-value in the filtered metadata.      
+      for(let [key, value] of Object.entries(metadata[0])) {
         let text = `${key.toUpperCase()}: ${value}`;
         panel.append('div').text(text);
       }
@@ -40,26 +36,66 @@ function buildCharts(sampleNum, json) {
     // Filter the samples for the object with the desired sample number
     sample = sample.filter(entry => {
       if (entry.id == sampleNum) return entry;
-    })
+    });
+    sample = sample[0];
 
     // Get the otu_ids, otu_labels, and sample_values
-    console.log(sample);
+    let ids = sample.otu_ids;
+    let labels = sample.otu_labels;
+    let values = sample.sample_values;
 
     // Build a Bubble Chart
-
+    let bubble_trace = {
+      x: ids,
+      y: values,
+      mode: 'markers',
+      marker: {
+        size: values,
+        color: ids
+      },
+      text: labels
+    };
+    let bubble_traces = [bubble_trace];
 
     // Render the Bubble Chart
-
+    let bubble_layout = {
+      title: {
+        text: 'Bacteria Cultures Per Sample'
+      },
+      xaxis: {
+        title: {text: 'OTU ID'}
+      },
+      yaxis: {
+        title: {text: 'Number of Bacteria'}
+      }
+    };
+    
+    Plotly.newPlot('bubble', bubble_traces, bubble_layout);
 
     // For the Bar Chart, map the otu_ids to a list of strings for your yticks
+    // ---
+    // Create a horizontal bar chart with a dropdown menu to display the top 10 OTUs found in that individual.
+    // Use sample_values as the values for the bar chart.
+    // Use otu_ids as the labels for the bar chart.
+    // Use otu_labels as the hovertext for the chart.
+    let bar_trace = {
+      x: values,
+      y: ids,
+      type: 'bar',
+      // mode: ,
+      // marker: {
 
-
+      // },
+      orientation: 'h',
+      text: labels
+    };
+    let bar_traces = [bar_trace];
     // Build a Bar Chart
     // Don't forget to slice and reverse the input data appropriately
 
 
     // Render the Bar Chart
-
+    Plotly.newPlot('bar', bar_traces)
     }
   );
 }
