@@ -26,6 +26,76 @@ function buildMetadata(sampleNum, json) {
   );
 }
 
+// function spreadColor(arr) {
+//   let ids = arr.otu_ids;
+//   ids.length
+// };
+
+function bubbleChart(arr) {
+  // Get the otu_ids, otu_labels, and sample_values
+  let ids = arr.otu_ids;
+  let values = arr.sample_values;
+  let labels = arr.otu_labels;
+
+  // Build a Bubble Chart
+  let bubble_trace = {
+    x: ids,
+    y: values,
+    mode: 'markers',
+    marker: {
+      size: values,
+      color: ids,
+      colorscale: 'Viridis'
+    },
+    text: labels
+  };
+
+  // Build Bubble Chart Layout
+  let bubble_layout = {
+    title: {
+      text: 'Bacteria Cultures Per Sample'},
+    xaxis: {
+      title: {text: 'OTU ID'}
+    },
+    yaxis: {
+      title: {text: 'Number of Bacteria'}
+    }
+  };
+
+  // Render the Bubble Chart
+  Plotly.newPlot('bubble', [bubble_trace], bubble_layout);
+};
+
+function barChart(arr) {
+  // Get the otu_ids, otu_labels, and sample_values
+  let ids = arr.otu_ids;
+  let values = arr.sample_values;
+  let labels = arr.otu_labels;
+
+  // Build a Bar Chart
+  // Don't forget to slice and reverse the input data appropriately
+  // For the Bar Chart, map the otu_ids to a list of strings for your yticks
+  let bar_trace = {
+    x: values.slice(0, 10).reverse(),
+    y: ids.map(id => `OTU ${id}`).slice(0, 10).reverse(),
+    type: 'bar',
+    orientation: 'h'
+  };
+
+  // Build Bar Chart Layout
+  let bar_layout = {
+    title: {
+      text: 'Top 10 Bacteria Cultures Found'
+    },
+    xaxis: {
+      title: {text: 'Number of Bacteria'}
+    }
+  };
+
+  // Render the Bar Chart
+  Plotly.newPlot('bar', [bar_trace], bar_layout);
+};
+
 // Function to build both charts
 function buildCharts(sampleNum, json) {
   d3.json(json).then((data) => {
@@ -39,68 +109,11 @@ function buildCharts(sampleNum, json) {
     });
     sample = sample[0];
 
-    // Get the otu_ids, otu_labels, and sample_values
-    let ids = sample.otu_ids;
-    let values = sample.sample_values;
-    let labels = sample.otu_labels;
-
-    // Build a Bubble Chart
-    let bubble_trace = {
-      x: ids,
-      y: values,
-      mode: 'markers',
-      marker: {
-        size: values,
-        color: ids
-      },
-      text: labels
-    };
-
-    // Build Bubble Chart Layout
-    let bubble_layout = {
-      title: {
-        text: 'Bacteria Cultures Per Sample'
-      },
-      xaxis: {
-        title: {text: 'OTU ID'}
-      },
-      yaxis: {
-        title: {text: 'Number of Bacteria'}
-      }
-    };
-
-    // Render the Bubble Chart
-    Plotly.newPlot('bubble', [bubble_trace], bubble_layout);
-
-    // Build a Bar Chart
-    // Don't forget to slice and reverse the input data appropriately
-    // For the Bar Chart, map the otu_ids to a list of strings for your yticks
-
-    let bar_trace = {
-      x: values.slice(0, 10).reverse(),
-      y: ids.map(id => `OTU ${id}`).slice(0, 10).reverse(),
-      type: 'bar',
-      marker: {
-        color: ''
-      },
-      orientation: 'h',
-    };
-
-    // Build Bar Chart Layout
-    let bar_layout = {
-      title: {
-        text: 'Top 10 Bacteria Cultures Found'
-      },
-      xaxis: {
-        title: {text: 'Number of Bacteria'}
-      }
-    };
-
-    // Render the Bar Chart
-    Plotly.newPlot('bar', [bar_trace], bar_layout);
+    barChart(sample);
+    bubbleChart(sample);
     }
   );
-}
+};
 
 // Function to run on page load
 function init() {
@@ -126,7 +139,6 @@ function init() {
     let firstSample = names[0];
 
     // Build charts and metadata panel with the first sample
-
     buildMetadata(firstSample, api_json);
     buildCharts(firstSample, api_json);
     }
@@ -136,7 +148,7 @@ function init() {
 // Function for event listener
 function optionChanged(newSampleNum) {
   // Build charts and metadata panel each time a new sample is selected
-
+  
 }
 
 // Initialize the dashboard
