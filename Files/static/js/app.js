@@ -97,9 +97,12 @@ function buildMetadata(sampleNum, json) {
   let metadata = json.metadata;
 
   // Filter the metadata for the object with the desired sample number
-  metadata = metadata.filter((entry) => {
-    if (entry.id == sampleNum) return entry;
-  });
+  metadata = metadata.filter((entry) => 
+    {
+      if (entry.id == sampleNum) 
+        return entry;
+    }
+  )[0];
 
   // Use d3 to select the panel with id of `#sample-metadata`
   let panel = d3.select('#sample-metadata');
@@ -109,7 +112,7 @@ function buildMetadata(sampleNum, json) {
 
   // Inside a loop, you will need to use d3 to append new
   // tags for each key-value in the filtered metadata.      
-  for(let [key, value] of Object.entries(metadata[0])) {
+  for(let [key, value] of Object.entries(metadata)) {
     let text = `${key.toUpperCase()}: ${value}`;
     panel.append('div').text(text);
   };
