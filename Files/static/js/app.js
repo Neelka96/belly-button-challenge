@@ -256,9 +256,7 @@ function colorChange(element) {
   let oldColor = '';
   do {
     newColor = colors[Math.floor(Math.random() * colors.length)];
-    oldColor = element.className.slice(
-      element.classList[0].length + 1
-    );
+    oldColor = element.className.slice(element.classList[0].length + 1);
   } while (newColor == oldColor);
 
   element.className = element.classList[0] + ' ' + newColor;
