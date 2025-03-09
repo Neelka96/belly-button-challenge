@@ -1,6 +1,5 @@
 // app.js - Belly Button Biodiversity Dashboard
 
-
 // -- CHART TRACERS --
 // -------------------
 
@@ -127,11 +126,17 @@ function buildCharts(sampleNum, json) {
 // -- Page Core --
 // ---------------
 
+// Global Variable to Hold JSON
+let globalJSON = null;
+
 // Function to run on page load
 function init() {
   const json_api = 'https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json'; 
   d3.json(json_api).then(data => 
     {
+      // Store Full JSON for later use
+      globalJSON = data;
+
       // Get the names field
       let names = data.names;
 
@@ -158,14 +163,10 @@ function init() {
 
 // Function for event listener
 function optionChanged(newSampleNum) {
-  const json_api = 'https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json'; 
-  d3.json(json_api).then(data => 
-    {
-      // Build charts and metadata panel each time a new sample is selected
-      buildMetadata(newSampleNum, data);
-      buildCharts(newSampleNum, data);
-    }
-  );
+  // Build charts and metadata panel each time a new sample is selected
+  // Use globally stored JSON instead of making another API call
+  buildMetadata(newSampleNum, globalJSON);
+  buildCharts(newSampleNum, globalJSON);
 };
 
 // Initialize the dashboard
