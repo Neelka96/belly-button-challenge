@@ -102,7 +102,7 @@ function buildMetadata(sampleNum, json) {
   };
 };
 
-// Function to build both charts
+// MAIN CHART BUILDER
 function buildCharts(sampleNum, json) {
   // Get the samples field
   let sample = json.samples;
@@ -126,7 +126,6 @@ function buildCharts(sampleNum, json) {
 
 // -- Page Core --
 // ---------------
-
 
 // Function to run on page load
 function init() {
@@ -160,15 +159,14 @@ function init() {
 // Function for event listener
 function optionChanged(newSampleNum) {
   const json_api = 'https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json'; 
-  d3.json(json_api).then(data => {
-
-  // Build charts and metadata panel each time a new sample is selected
-  buildMetadata(newSampleNum, data);
-  buildCharts(newSampleNum, data);
-}
-
-  )};
+  d3.json(json_api).then(data => 
+    {
+      // Build charts and metadata panel each time a new sample is selected
+      buildMetadata(newSampleNum, data);
+      buildCharts(newSampleNum, data);
+    }
+  );
+};
 
 // Initialize the dashboard
 init();
-// console.log(init());
