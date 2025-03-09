@@ -1,5 +1,15 @@
 // app.js - Belly Button Biodiversity Dashboard
 
+// LABEL FIXER
+function cleanLabels(arr) {
+  let newArr = [];
+  for(let i = 0; i < arr.length; i++) {
+    let set = arr[i];
+    newArr.push(set.replace(/;/g, '<br>'));
+  };
+  return newArr;
+};
+
 // -- CHART TRACERS --
 // -------------------
 
@@ -16,7 +26,7 @@ function bubbleChart(json, params) {
       color: json.otu_ids,
       colorscale: 'Viridis'
     },
-    text: json.otu_labels
+    text: cleanLabels(json.otu_labels)
   };
 
   // Build Bubble Chart Layout
@@ -45,17 +55,19 @@ function barChart(json, params) {
   // Format Arrays for Barchart
   // Slicing for Top 10 OTU Values (Plotly pre-sorts) w/ rearrangement &
   // mapping IDs to string & matching value axis
-  values = values.slice(0, 10).reverse()
-  ids = ids.map(id => `OTU ${id}`).slice(0, 10).reverse()
-  
+  let slicedValues = values.slice(0, 10);
+  let slicedIDs = ids.map(id => `OTU ${id}`).slice(0, 10);
   // Build a Bar Chart
   let trace = {
-    x: values,
-    y: ids,
+    x: slicedValues.reverse(),
+    y: slicedIDs.reverse(),
     type: 'bar',
     orientation: 'h',
-    hovertext: {text: labels}
-    // text: labels
+    hovertext: cleanLabels(labels),
+    hovertemplate: 
+      'Value: %{x}<br>' + 
+      '%{hovertext}' + 
+      '<extra></extra>'
   };
 
   // Build Bar Chart Layout
@@ -66,6 +78,7 @@ function barChart(json, params) {
     xaxis: {
       title: {text: 'Number of Bacteria'}
     }
+    // hovermode: 'closest'
   };
   
   // Render the Bar Chart
@@ -126,7 +139,7 @@ function buildCharts(sampleNum, json) {
 // -- Page Core --
 // ---------------
 
-// Global Variable to Hold JSON
+// Init. Global Var to Hold JSON
 let globalJSON = null;
 
 // Function to run on page load
@@ -134,7 +147,7 @@ function init() {
   const json_api = 'https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json'; 
   d3.json(json_api).then(data => 
     {
-      // Store Full JSON for later use
+      // Store Full JSON for rebuilding plot later
       globalJSON = data;
 
       // Get the names field
