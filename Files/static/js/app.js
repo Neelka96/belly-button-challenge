@@ -40,17 +40,23 @@ function bubbleChart(json, params) {
   // Build Bubble Chart Layout
   let layout = {
     title: {
-      text: 'Bacteria Cultures Per Sample'},
+      text: 'Bacteria Cultures Per Sample',
+      font: {size: 20}
+    },
     xaxis: {
-      title: {text: 'OTU ID'}
+      title: {
+        text: 'OTU ID',
+        font: {size: 20}
+      }
     },
     yaxis: {
-      title: {text: 'Number of Bacteria'}
+      title: {
+        text: 'Number of Bacteria',
+        font: {size: 20},
+      }
     },
     hoverlabel: {
-      font: {
-        size: 15
-      }
+      font: {size: 15}
     }
   };
 
@@ -88,10 +94,14 @@ function barChart(json, params) {
   // Build Bar Chart Layout
   let layout = {
     title: {
-      text: 'Top 10 Bacteria Cultures Found'
+      text: '<b>Top 10 Bacteria Cultures Found</b>',
+      font: {size: 22}
     },
     xaxis: {
-      title: {text: 'Number of Bacteria'},
+      title: {
+        text: 'Number of Bacteria',
+        font: {size: 18}
+      },
       fixedrange: true
     },
     yaxis: {
@@ -100,9 +110,7 @@ function barChart(json, params) {
     dragmode: false,
     hoverlabel: {
       bgcolor: 'rgb(200, 255, 255)',
-      font: {
-        size: 15
-      }
+      font: {size: 15}
     }
   };
   
@@ -160,6 +168,11 @@ function buildCharts(sampleNum, json) {
 
   barChart(sample, params);
   bubbleChart(sample, params);
+
+  const length = sample.otu_ids.length;
+  if (length < 10) {
+    alert(`Warning: This subject only has ${length} record(s) on file!`);
+  }
 };
 
 
