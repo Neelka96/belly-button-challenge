@@ -3,7 +3,9 @@
 // LABEL FIXER
 function cleanLabels(arr) {
   let newArr = [];
+  // Loop through label array
   for(let i = 0; i < arr.length; i++) {
+    // Push Reformatted label sets to new arr
     let set = arr[i];
     newArr.push(set.replace(/;/g, '<br>'));
   };
@@ -57,6 +59,7 @@ function barChart(json, params) {
   // mapping IDs to string & matching value axis
   let slicedValues = values.slice(0, 10);
   let slicedIDs = ids.map(id => `OTU ${id}`).slice(0, 10);
+
   // Build a Bar Chart
   let trace = {
     x: slicedValues.reverse(),
@@ -65,7 +68,7 @@ function barChart(json, params) {
     orientation: 'h',
     hovertext: cleanLabels(labels),
     hovertemplate: 
-      'Value: %{x}<br>' + 
+      'Value: <b>%{x}</b><br>' + 
       '%{hovertext}' + 
       '<extra></extra>'
   };
@@ -78,11 +81,9 @@ function barChart(json, params) {
     xaxis: {
       title: {text: 'Number of Bacteria'}
     }
-    // hovermode: 'closest'
   };
   
   // Render the Bar Chart
-  // params.displayModeBar = false;
   Plotly.newPlot('bar', [trace], layout, params);
 };
 
