@@ -28,7 +28,13 @@ function bubbleChart(json, params) {
       color: json.otu_ids,
       colorscale: 'Viridis'
     },
-    text: cleanLabels(json.otu_labels)
+    hovertext: cleanLabels(json.otu_labels),
+    hovertemplate:
+      'ID #: <b>%{x}</b><br>' +
+      'Count: <b>%{y}</b><br>' +
+      '-----------------<br>' +
+      '%{hovertext}' +
+      '<extra></extra>'
   };
 
   // Build Bubble Chart Layout
@@ -40,6 +46,11 @@ function bubbleChart(json, params) {
     },
     yaxis: {
       title: {text: 'Number of Bacteria'}
+    },
+    hoverlabel: {
+      font: {
+        size: 15
+      }
     }
   };
 
@@ -68,7 +79,8 @@ function barChart(json, params) {
     orientation: 'h',
     hovertext: cleanLabels(labels),
     hovertemplate: 
-      'Value: <b>%{x}</b><br>' + 
+      'Count: <b>%{x}</b><br>' + 
+      '---------------<br>' +
       '%{hovertext}' + 
       '<extra></extra>'
   };
@@ -80,6 +92,12 @@ function barChart(json, params) {
     },
     xaxis: {
       title: {text: 'Number of Bacteria'}
+    },
+    hoverlabel: {
+      bgcolor: 'rgb(200, 255, 255)',
+      font: {
+        size: 15
+      }
     }
   };
   
@@ -184,6 +202,18 @@ function optionChanged(newSampleNum) {
   // Use globally stored JSON instead of making another API call
   buildMetadata(newSampleNum, globalJSON);
   buildCharts(newSampleNum, globalJSON);
+};
+
+function randomSelect() {
+  // Randomly select index from array
+  let ids = globalJSON.names;
+  let index = Math.floor(Math.random() * ids.length);
+  
+  // Call page builder for new option selection
+  optionChanged(ids[index]);
+
+  // Set Dropdown select value to random ID
+  document.getElementById('selDataset').value = ids[index];
 };
 
 // Initialize the dashboard
