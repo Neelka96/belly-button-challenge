@@ -23,11 +23,11 @@
       <div class="col-md-3">
         <div class="card card-body bg-light">
           <h6>Test Subject ID Number:</h6>
-          <select id="selDataset" onchange="optionChanged(this.value)"></select>
+          <select id="selDataset" onchange="sampleChange(this.value)"></select>
         </div>
         <br>
         <div class="card card-primary">
-          <div class="card-header bg-info" type="button" onclick="colorChange(this)">
+          <div id="card-head" class="card-header bg-info" type="button" onclick="colorChange(this)">
             <h4 class="card-title">Demographic Info</h4>
           </div>
           <div id="sample-metadata" class="card-body"></div>
@@ -36,7 +36,7 @@
         <div class="col-md-12">
           <div class="row">
             <div class="text-center align-items">
-              <button type="button" class="btn btn-primary" onclick="randomSelect();colorChange(this)">
+              <button id="rand-btn" type="button" class="btn btn-info" onclick="randomSelect();colorChange(this)">
                 Subject ID Randomizer
               </button>
             </div>

@@ -41,18 +41,18 @@ function bubbleChart(json, params) {
   let layout = {
     title: {
       text: 'Bacteria Cultures Per Sample',
-      font: {size: 20}
+      font: {size: 22}
     },
     xaxis: {
       title: {
         text: 'OTU ID',
-        font: {size: 20}
+        font: {size: 19}
       }
     },
     yaxis: {
       title: {
         text: 'Number of Bacteria',
-        font: {size: 20},
+        font: {size: 19},
       }
     },
     hoverlabel: {
@@ -94,13 +94,13 @@ function barChart(json, params) {
   // Build Bar Chart Layout
   let layout = {
     title: {
-      text: '<b>Top 10 Bacteria Cultures Found</b>',
+      text: 'Top 10 Bacteria Cultures Found',
       font: {size: 22}
     },
     xaxis: {
       title: {
         text: 'Number of Bacteria',
-        font: {size: 18}
+        font: {size: 19}
       },
       fixedrange: true
     },
@@ -110,7 +110,7 @@ function barChart(json, params) {
     dragmode: false,
     hoverlabel: {
       bgcolor: 'rgb(200, 255, 255)',
-      font: {size: 15}
+      font: {size: 15.5}
     }
   };
   
@@ -218,7 +218,7 @@ function init() {
 // ---------------------
 
 // Event when changing the subject ID selection
-function optionChanged(newSampleNum) {
+function sampleChange(newSampleNum) {
   // Build charts and metadata panel each time a new sample is selected
   // Use globally stored JSON instead of making another API call
   buildMetadata(newSampleNum, globalJSON);
@@ -233,7 +233,7 @@ function randomSelect() {
   let rand = ids[index];
   
   // Call page builder for new option selection
-  optionChanged(rand);
+  sampleChange(rand);
 
   // Set Dropdown select value to random ID
   document.getElementById('selDataset').value = rand;
