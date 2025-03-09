@@ -169,10 +169,10 @@ function buildCharts(sampleNum, json) {
   barChart(sample, params);
   bubbleChart(sample, params);
 
-  const length = sample.otu_ids.length;
-  if (length < 10) {
-    alert(`Warning: This subject only has ${length} record(s) on file!`);
-  }
+  // const length = sample.otu_ids.length;
+  // if (length < 10) {
+  //   alert(`Warning: This subject only has ${length} record(s) on file!`);
+  // }
 };
 
 
@@ -251,7 +251,16 @@ function colorChange(element) {
     'bg-light',
     'bg-dark text-white'
   ];
-  let newColor = colors[Math.floor(Math.random() * colors.length)];
+
+  let newColor = '';
+  let oldColor = '';
+  do {
+    newColor = colors[Math.floor(Math.random() * colors.length)];
+    oldColor = element.className.slice(
+      element.classList[0].length + 1
+    );
+  } while (newColor == oldColor);
+
   element.className = element.classList[0] + ' ' + newColor;
 };
 
