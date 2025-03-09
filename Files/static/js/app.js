@@ -196,7 +196,10 @@ function init() {
   );
 };
 
-// Function for event listener
+// -- EVENT LISTENERS -- 
+// ---------------------
+
+// Event when changing the subject ID selection
 function optionChanged(newSampleNum) {
   // Build charts and metadata panel each time a new sample is selected
   // Use globally stored JSON instead of making another API call
@@ -204,6 +207,7 @@ function optionChanged(newSampleNum) {
   buildCharts(newSampleNum, globalJSON);
 };
 
+// Event when hitting the random subject ID button
 function randomSelect() {
   // Randomly select index from array
   let ids = globalJSON.names;
@@ -217,6 +221,7 @@ function randomSelect() {
   document.getElementById('selDataset').value = rand;
 };
 
+// Event to change colors on certain pressables
 function colorChange(element) {
   colors = [
     'bg-success text-white',
@@ -231,6 +236,7 @@ function colorChange(element) {
   let newColor = colors[Math.floor(Math.random() * colors.length)];
   element.className = element.classList[0] + ' ' + newColor;
 };
+
 
 // Initialize the dashboard
 init();
