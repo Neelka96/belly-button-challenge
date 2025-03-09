@@ -91,8 +91,13 @@ function barChart(json, params) {
       text: 'Top 10 Bacteria Cultures Found'
     },
     xaxis: {
-      title: {text: 'Number of Bacteria'}
+      title: {text: 'Number of Bacteria'},
+      fixedrange: true
     },
+    yaxis: {
+      fixedrange: true
+    },
+    dragmode: false,
     hoverlabel: {
       bgcolor: 'rgb(200, 255, 255)',
       font: {
