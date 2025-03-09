@@ -208,12 +208,28 @@ function randomSelect() {
   // Randomly select index from array
   let ids = globalJSON.names;
   let index = Math.floor(Math.random() * ids.length);
+  let rand = ids[index];
   
   // Call page builder for new option selection
-  optionChanged(ids[index]);
+  optionChanged(rand);
 
   // Set Dropdown select value to random ID
-  document.getElementById('selDataset').value = ids[index];
+  document.getElementById('selDataset').value = rand;
+};
+
+function colorChange(element) {
+  colors = [
+    'bg-success text-white',
+    'bg-primary text-white',
+    'bg-danger text-white',
+    'bg-warning',
+    'bg-info',
+    'bg-secondary text-white',
+    'bg-light',
+    'bg-dark text-white'
+  ];
+  let newColor = colors[Math.floor(Math.random() * colors.length)];
+  element.className = element.classList[0] + ' ' + newColor;
 };
 
 // Initialize the dashboard
