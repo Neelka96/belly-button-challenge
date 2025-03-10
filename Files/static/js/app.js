@@ -143,10 +143,11 @@ function buildMetadata(sampleNum, json) {
 
   // Inside a loop, you will need to use d3 to append new
   // tags for each key-value in the filtered metadata.      
+  let text = '';
   for(let [key, value] of Object.entries(metadata)) {
-    let text = `${key.toUpperCase()}: ${value}`;
-    panel.append('div').text(text);
+    text += `${key.toUpperCase()}: ${value}<br>`;
   };
+  panel.append('div').html(text);
 };
 
 // MAIN CHART BUILDER
@@ -198,6 +199,7 @@ function init() {
         let name = names[i];
         dropDown.append('option').text(name);
       };
+      dropDown
 
       // Get the first sample from the list
       let firstSample = names[0];
@@ -231,10 +233,11 @@ function randomSelect() {
   sampleChange(rand);
 
   // Set Dropdown select value to random ID
-  document.getElementById('selDataset').value = rand;
+  d3.select('#selDataset').property('value', rand);
 };
 
 // Event to change colors on certain pressables
+// TODO Try to switch this function to d3 based methods too
 function colorChange(element) {
   colors = [
     'bg-success text-white',
