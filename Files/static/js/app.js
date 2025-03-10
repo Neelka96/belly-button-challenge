@@ -128,7 +128,7 @@ function buildMetadata(sampleNum, json) {
   let metadata = json.metadata;
 
   // Filter the metadata for the object with the desired sample number
-  metadata = metadata.filter((entry) => 
+  metadata = metadata.filter(entry => 
     {
       if (entry.id == sampleNum) 
         return entry;
@@ -168,11 +168,6 @@ function buildCharts(sampleNum, json) {
 
   barChart(sample, params);
   bubbleChart(sample, params);
-
-  // const length = sample.otu_ids.length;
-  // if (length < 10) {
-  //   alert(`Warning: This subject only has ${length} record(s) on file!`);
-  // }
 };
 
 
