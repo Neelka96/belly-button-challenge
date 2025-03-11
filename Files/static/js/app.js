@@ -76,10 +76,13 @@ function barChart(json, params) {
   // Getting user input value
   let userVal = d3.select('#barLimit').node().value;
 
+  // Getting Universal Length
+  let _length = ids.length;
+
   // Find slicing limit
   let limit;
   if (userVal == 'all')
-    limit = ids.length;
+    limit = _length;
   else
     limit = Number(userVal) || 10;
 
@@ -108,7 +111,7 @@ function barChart(json, params) {
   
   // Cond'l Title Text
   let titleText = '';
-  if (limit == ids.length)
+  if (limit == _length)
     titleText = `All ${limit} Bacteria Cultures Found`;
   else
     titleText = `Top ${limit} Bacteria Cultures Found`;
