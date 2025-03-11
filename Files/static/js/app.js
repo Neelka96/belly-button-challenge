@@ -115,9 +115,7 @@ function bubbleChart(json, params) {
         font: {size: 19},
       }
     },
-    hoverlabel: {
-      font: {size: 15}
-    }
+    hoverlabel: {font: {size: 15}}
   };
 
   // Render the Bubble Chart
