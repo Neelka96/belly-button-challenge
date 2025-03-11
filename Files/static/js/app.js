@@ -104,13 +104,13 @@ function barChart(json, params) {
         text: 'Number of Bacteria',
         font: {size: 19}
       },
-      fixedrange: true
+      fixedrange: true // Non-zoomable
     },
     yaxis: {
-      fixedrange: true
+      fixedrange: true  // Non-zoomable
     },
-    dragmode: false,
-    hoverlabel: {
+    dragmode: false,  // Non-draggable
+    hoverlabel: {   // Custom tooltip
       bgcolor: 'rgb(200, 255, 255)',
       font: {size: 15.5}
     }
@@ -125,6 +125,32 @@ function barChart(json, params) {
 
 // -- Page Builders -- 
 // -------------------
+
+// DROPDOWN BUILDER
+function buildDropDown(names_arr, target_id) {
+  // Use d3 to select the dropdown with id of `#selDataset`
+  let dropDown = d3.select(target_id);
+  // Clear (if existing) any html
+  dropDown.html('');
+
+  // Create Doc Fragment to Hold Option Elements
+  // (Approach of appending to the DOM only once was taken)
+  let frag = document.createDocumentFragment();
+
+  // For each name create an option element with that name
+  // Append each one to the doc fragment
+  names_arr.forEach(name => 
+    {
+      let opt = document.createElement('option');
+      opt.text = name;
+      frag.appendChild(opt);
+    }
+  );
+  // Append the document fragment to the dropdown menu
+  dropDown.node().appendChild(frag);
+
+  return null;
+};
 
 // METADATA PANEL BUILD
 function buildMetadata(sampleNum, json) {
@@ -152,32 +178,6 @@ function buildMetadata(sampleNum, json) {
     text += `${key.toUpperCase()}: ${value}<br>`;
   };
   panel.append('div').html(text);
-
-  return null;
-};
-
-// DROPDOWN MENU BUILDER
-function buildDropDown(names_arr) {
-  // Use d3 to select the dropdown with id of `#selDataset`
-  let dropDown = d3.select('#selDataset');
-  // Clear (if existing) any html
-  dropDown.html('');
-
-  // Create Doc Fragment to Hold Option Elements
-  // (Approach of appending to the DOM only once was taken)
-  let frag = document.createDocumentFragment();
-
-  // For each name create an option element with that name
-  // Append each one to the doc fragment
-  names_arr.forEach(name => 
-    {
-      let opt = document.createElement('option');
-      opt.text = name;
-      frag.appendChild(opt);
-    }
-  );
-  // Append the document fragment to the dropdown menu
-  dropDown.node().appendChild(frag);
 
   return null;
 };
@@ -225,7 +225,7 @@ function init() {
 
       // Build DropDown Menu
       // Use the list of sample names to populate the select options
-      buildDropDown(names);
+      buildDropDown(names, '#selDataset');
 
       // Get the first sample from the list
       let firstSample = names[0];
