@@ -160,12 +160,15 @@ function buildMetadata(sampleNum, json) {
 function buildDropDown(names_arr) {
   // Use d3 to select the dropdown with id of `#selDataset`
   let dropDown = d3.select('#selDataset');
+  // Clear (if existing) any html
   dropDown.html('');
 
   // Create Doc Fragment to Hold Option Elements
   // (Approach of appending to the DOM only once was taken)
   let frag = document.createDocumentFragment();
 
+  // For each name create an option element with that name
+  // Append each one to the doc fragment
   names_arr.forEach(name => 
     {
       let opt = document.createElement('option');
@@ -173,10 +176,11 @@ function buildDropDown(names_arr) {
       frag.appendChild(opt);
     }
   );
+  // Append the document fragment to the dropdown menu
   dropDown.node().appendChild(frag);
 
   return null;
-}
+};
 
 // MAIN CHART BUILDER
 function buildCharts(sampleNum, json) {
@@ -220,15 +224,8 @@ function init() {
       let names = data.names;
 
       // Build DropDown Menu
+      // Use the list of sample names to populate the select options
       buildDropDown(names);
-
-      // // Use the list of sample names to populate the select options
-      // // Hint: Inside a loop, you will need to use d3 to append a new
-      // // option for each sample name.
-      // for (let i = 0; i < names.length; i++) {
-      //   let name = names[i];
-      //   dropDown.append('option').text(name);
-      // };
 
       // Get the first sample from the list
       let firstSample = names[0];
@@ -269,7 +266,6 @@ function randomSelect() {
 };
 
 // Event to change colors on certain pressables
-// TODO Try to switch this function to d3 based methods too
 function colorChange(element) {
   colors = [
     'bg-success text-white',
