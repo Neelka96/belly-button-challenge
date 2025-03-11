@@ -29,6 +29,22 @@
           <select id="selDataset" onchange="sampleChange(this.value)"></select>
         </div>
         <br>
+
+        <!-- Add this chunk -->
+        <div class="card card-body bg-light">
+          <label for="barLimit">Number of Bars to Show:</label>
+          <select id="barLimit" onchange="sampleChange(selDataset.value)">
+            <option value="5">Top 5</option>
+            <option value="10" selected>Top 10</option>
+            <option value="15">Top 15</option>
+            <option value="20">Top 20</option>
+            <option value="25">Top 25</option>
+            <option value="all">All</option>
+          </select>
+        </div>
+        <br>
+        <!-- END OF NEW HTML -->
+
         <div class="card card-primary">
           <div id="card-head" class="card-header bg-info" type="button" onclick="colorChange(this)">
             <h4 class="card-title">Demographic Info</h4>

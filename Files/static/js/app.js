@@ -73,11 +73,22 @@ function barChart(json, params) {
   let values = json.sample_values;
   let labels = json.otu_labels;
 
+  // Getting user input value
+  let userVal = d3.select('#barLimit').node().value;
+
+  // Find slicing limit
+  let limit;
+  if (userVal == 'all')
+    limit = ids.length;
+  else
+    limit = Number(userVal) || 10;
+
   // Format Arrays for Barchart
   // Slicing for Top 10 OTU Values (Plotly pre-sorts) w/ rearrangement &
   // mapping IDs to string & matching value axis
-  let slicedValues = values.slice(0, 10);
-  let slicedIDs = ids.map(id => `OTU ${id}`).slice(0, 10);
+  let slicedValues = values.slice(0, limit);
+  let slicedIDs = ids.slice(0, limit).map(id => `OTU ${id}`);
+  let slicedLabels = labels.slice(0, limit);
 
   // Build a Bar Chart
   let trace = {
@@ -85,7 +96,7 @@ function barChart(json, params) {
     y: slicedIDs.reverse(),
     type: 'bar',
     orientation: 'h',
-    hovertext: cleanLabels(labels),
+    hovertext: cleanLabels(slicedLabels.reverse()),
     hovertemplate: 
       'Count: <b>%{x}</b><br>' + 
       '---------------<br>' +
@@ -94,9 +105,17 @@ function barChart(json, params) {
   };
 
   // Build Bar Chart Layout
+  
+  // Cond'l Title Text
+  let titleText = '';
+  if (limit == ids.length)
+    titleText = `All ${limit} Bacteria Cultures Found`;
+  else
+    titleText = `Top ${limit} Bacteria Cultures Found`;
+
   let layout = {
     title: {
-      text: 'Top 10 Bacteria Cultures Found',
+      text: titleText,
       font: {size: 22}
     },
     xaxis: {
