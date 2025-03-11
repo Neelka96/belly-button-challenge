@@ -62,6 +62,8 @@ function bubbleChart(json, params) {
 
   // Render the Bubble Chart
   Plotly.newPlot('bubble', [trace], layout, params);
+
+  return null;
 };
 
 // BAR CHART BUILD
@@ -116,6 +118,8 @@ function barChart(json, params) {
   
   // Render the Bar Chart
   Plotly.newPlot('bar', [trace], layout, params);
+
+  return null;
 };
 
 
@@ -148,7 +152,31 @@ function buildMetadata(sampleNum, json) {
     text += `${key.toUpperCase()}: ${value}<br>`;
   };
   panel.append('div').html(text);
+
+  return null;
 };
+
+// DROPDOWN MENU BUILDER
+function buildDropDown(names_arr) {
+  // Use d3 to select the dropdown with id of `#selDataset`
+  let dropDown = d3.select('#selDataset');
+  dropDown.html('');
+
+  // Create Doc Fragment to Hold Option Elements
+  // (Approach of appending to the DOM only once was taken)
+  let frag = document.createDocumentFragment();
+
+  names_arr.forEach(name => 
+    {
+      let opt = document.createElement('option');
+      opt.text = name;
+      frag.appendChild(opt);
+    }
+  );
+  dropDown.node().appendChild(frag);
+
+  return null;
+}
 
 // MAIN CHART BUILDER
 function buildCharts(sampleNum, json) {
@@ -169,6 +197,8 @@ function buildCharts(sampleNum, json) {
 
   barChart(sample, params);
   bubbleChart(sample, params);
+
+  return null;
 };
 
 
@@ -189,17 +219,16 @@ function init() {
       // Get the names field
       let names = data.names;
 
-      // Use d3 to select the dropdown with id of `#selDataset`
-      let dropDown = d3.select('#selDataset');
+      // Build DropDown Menu
+      buildDropDown(names);
 
-      // Use the list of sample names to populate the select options
-      // Hint: Inside a loop, you will need to use d3 to append a new
-      // option for each sample name.
-      for (let i = 0; i < names.length; i++) {
-        let name = names[i];
-        dropDown.append('option').text(name);
-      };
-      dropDown
+      // // Use the list of sample names to populate the select options
+      // // Hint: Inside a loop, you will need to use d3 to append a new
+      // // option for each sample name.
+      // for (let i = 0; i < names.length; i++) {
+      //   let name = names[i];
+      //   dropDown.append('option').text(name);
+      // };
 
       // Get the first sample from the list
       let firstSample = names[0];
@@ -209,6 +238,7 @@ function init() {
       buildCharts(firstSample, data);
     }
   );
+  return 0;
 };
 
 // -- EVENT LISTENERS -- 
@@ -234,6 +264,8 @@ function randomSelect() {
 
   // Set Dropdown select value to random ID
   d3.select('#selDataset').property('value', rand);
+
+  return null;
 };
 
 // Event to change colors on certain pressables
@@ -258,6 +290,8 @@ function colorChange(element) {
   } while (newColor == oldColor);
 
   element.className = element.classList[0] + ' ' + newColor;
+
+  return null;
 };
 
 
