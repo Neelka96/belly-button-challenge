@@ -12,6 +12,70 @@ function cleanLabels(arr) {
   return newArr;
 };
 
+// ID COUNT WARNINGS
+function displayWarnings(total, numberToShow, alert_id) {
+  // d3 select html targets
+  let alert = d3.select(alert_id);
+  let id = d3.select('#selDataset').node().value;
+
+  // Clear out existing html if any
+  alert.html('');
+
+  // Set vars for easy writing
+  const divDanger = '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
+  const divWarning = '<div class="alert alert-warning alert-dismissible fade show" role="alert">';
+  const divInfo = '<div class="alert alert-info alert-dismissible fade show" role="alert">';
+  let closeBtn = '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'
+
+  // Checking for small # of records -> Display #s
+  if (total == 0) {
+    alert.html(`
+      ${divDanger}
+        DANGER: SUBJECT HAS ${total} RECORDS TO DISPLAY!
+        ${closeBtn}
+      </div>
+    `);
+  }
+  else if (total == 1) {
+    alert.html(`
+      ${divWarning}
+        WARNING: SUBJECT ${id} ONLY HAS ${total} RECORD! (< 10)
+        ${closeBtn}
+      </div>
+    `);
+  }
+  else if (total < 10) {
+    alert.html(`
+      ${divWarning}
+        WARNING: SUBJECT ${id} ONLY HAS ${total} RECORDS! (< 10)
+        ${closeBtn}
+      </div>
+    `);
+  }
+  else if (total < 20) {
+    alert.html(`
+      ${divInfo}
+        Info: Subject ${id} only has ${total} records. (< 20)<br>
+        ${closeBtn}
+      </div>
+    `);
+  }
+  
+  // Checking against selection for bar-chart limit
+  if (numberToShow > total) {
+    alert.html(`
+      ${divWarning}
+        Input Error: You've request ${numberToShow} bars, but there are only ${total} data points.<br>
+        Showing all available data.
+        ${closeBtn}
+      </div>
+    `)
+  }
+
+  return null;
+}
+
+
 // -- CHART TRACERS --
 // -------------------
 
@@ -85,6 +149,10 @@ function barChart(json, params) {
     limit = _length;
   else
     limit = Number(userVal) || 10;
+
+  // Display warnings if any
+  // (Multiple subjects has less than 10 records)
+  displayWarnings(_length, limit, '#alert-box');
 
   // Format Arrays for Barchart
   // Slicing for Top 10 OTU Values (Plotly pre-sorts) w/ rearrangement &
