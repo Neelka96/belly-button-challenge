@@ -1,13 +1,5 @@
 // app.js - Belly Button Biodiversity Dashboard
 
-// LABEL FIXER
-function cleanLabels(dirty_arr) {
-  let clean_arr = Array.from(
-    dirty_arr, labels => labels.replace(/;/g, '<br>')
-  );
-  return clean_arr;
-};
-
 // RECORD COUNTS WARNINGS
 function displayWarnings(total, numberToShow, alert_id) {
   // d3 select html targets
@@ -74,9 +66,13 @@ function displayWarnings(total, numberToShow, alert_id) {
   return null;
 }
 
-
 // -- CHART TRACERS --
 // -------------------
+
+// LABEL FIXER
+function cleanLabels(dirty_arr) {
+  return dirty_arr.map(labels => labels.replace(/;/g, '<br>'));
+};
 
 // BUBBLE CHART BUILD
 function bubbleChart(json, params) {
