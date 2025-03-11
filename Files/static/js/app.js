@@ -25,7 +25,7 @@ function displayWarnings(total, numberToShow, alert_id) {
   const divDanger = '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
   const divWarning = '<div class="alert alert-warning alert-dismissible fade show" role="alert">';
   const divInfo = '<div class="alert alert-info alert-dismissible fade show" role="alert">';
-  let closeBtn = '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'
+  const closeBtn = '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'
 
   // Checking for small # of records -> Display #s
   if (total == 0) {
@@ -153,6 +153,9 @@ function barChart(json, params) {
   // Display warnings if any
   // (Multiple subjects has less than 10 records)
   displayWarnings(_length, limit, '#alert-box');
+
+  // Capping limit for proper displaying of max data limits
+  if (limit > _length) limit = _length;
 
   // Format Arrays for Barchart
   // Slicing for Top 10 OTU Values (Plotly pre-sorts) w/ rearrangement &
