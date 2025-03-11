@@ -12,7 +12,7 @@ function cleanLabels(arr) {
   return newArr;
 };
 
-// ID COUNT WARNINGS
+// RECORD COUNTS WARNINGS
 function displayWarnings(total, numberToShow, alert_id) {
   // d3 select html targets
   let alert = d3.select(alert_id);
@@ -177,8 +177,6 @@ function barChart(json, params) {
       '%{hovertext}' + 
       '<extra></extra>'
   };
-
-  // Build Bar Chart Layout
   
   // Cond'l Title Text
   let titleText = '';
@@ -187,6 +185,7 @@ function barChart(json, params) {
   else
     titleText = `Top ${limit} Bacteria Cultures Found`;
 
+  // Build Bar Chart Layout
   let layout = {
     title: {
       text: titleText,
