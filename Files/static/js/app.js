@@ -267,6 +267,7 @@ function randomSelect() {
 
 // Event to change colors on certain pressables
 function colorChange(element) {
+  // Set list of colors (in bootstrap)
   colors = [
     'bg-success text-white',
     'bg-primary text-white',
@@ -278,13 +279,17 @@ function colorChange(element) {
     'bg-dark text-white'
   ];
 
+  // Init Empty Colors
   let newColor = '';
   let oldColor = '';
-  do {
+  // Randomly select a color and then ensure it's new
+  // LIMITATION: Slightly hardcoded for the elements it's linked to
+  do { // Do-while so if it nails it on the first try the loop exits
     newColor = colors[Math.floor(Math.random() * colors.length)];
     oldColor = element.className.slice(element.classList[0].length + 1);
   } while (newColor == oldColor);
 
+  // Setting the element's class (again slightly hardcoded)
   element.className = element.classList[0] + ' ' + newColor;
 
   return null;
