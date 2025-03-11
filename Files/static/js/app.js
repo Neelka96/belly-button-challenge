@@ -21,52 +21,55 @@ function displayWarnings(total, numberToShow, alert_id) {
   const divDanger = '<div class="alert alert-danger alert-dismissible fade show" role="alert">';
   const divWarning = '<div class="alert alert-warning alert-dismissible fade show" role="alert">';
   const divInfo = '<div class="alert alert-info alert-dismissible fade show" role="alert">';
-  const closeBtn = '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'
+  const closeBtn = '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
 
+  let message = '';
   // Checking for small # of records -> Display #s
   if (total == 0) {
-    alert.html(`
+    message = `
       ${divDanger}
         DANGER: SUBJECT HAS ${total} RECORDS TO DISPLAY!
         ${closeBtn}
       </div>
-    `);
+    `;
   }
   else if (total == 1) {
-    alert.html(`
+    message = `
       ${divWarning}
         WARNING: SUBJECT ${id} ONLY HAS ${total} RECORD! (< 10)
         ${closeBtn}
       </div>
-    `);
+    `;
   }
   else if (total < 10) {
-    alert.html(`
+    message = `
       ${divWarning}
         WARNING: SUBJECT ${id} ONLY HAS ${total} RECORDS! (< 10)
         ${closeBtn}
       </div>
-    `);
+    `;
   }
   else if (total < 20) {
-    alert.html(`
+    message = `
       ${divInfo}
         Info: Subject ${id} only has ${total} records. (< 20)<br>
         ${closeBtn}
       </div>
-    `);
+    `;
   }
   
   // Checking against selection for bar-chart limit
   if (numberToShow > total) {
-    alert.html(`
+    message = `
       ${divWarning}
         Input Error: You've request ${numberToShow} bars, but there are only ${total} data points.<br>
         Showing all available data.
         ${closeBtn}
       </div>
-    `)
+    `;
   }
+
+  alert.html(message);
 
   return null;
 }
@@ -89,13 +92,13 @@ function bubbleChart(json, params) {
       colorscale: 'Viridis'
     },
     hovertext: cleanLabels(json.otu_labels),
-    hovertemplate:
-      'ID #: <b>%{x}</b><br>' +
-      'Count: <b>%{y}</b><br>' +
-      '-----------------<br>' +
-      '%{hovertext}' +
-      '<extra></extra>'
-  };
+    hovertemplate: `
+      ID #: <b>%{x}</b><br>
+      Count: <b>%{y}</b><br>
+      -----------------<br>
+      %{hovertext}
+      <extra></extra>
+  `};
 
   // Build Bubble Chart Layout
   let layout = {
@@ -170,12 +173,12 @@ function barChart(json, params) {
     type: 'bar',
     orientation: 'h',
     hovertext: cleanLabels(slicedLabels),
-    hovertemplate: 
-      'Count: <b>%{x}</b><br>' + 
-      '---------------<br>' +
-      '%{hovertext}' + 
-      '<extra></extra>'
-  };
+    hovertemplate: `
+      Count: <b>%{x}</b><br>
+      ---------------<br>
+      %{hovertext}
+      <extra></extra>
+  `};
   
   // Cond'l Title Text
   let titleText = '';
