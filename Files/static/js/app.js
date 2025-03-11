@@ -1,15 +1,11 @@
 // app.js - Belly Button Biodiversity Dashboard
 
 // LABEL FIXER
-function cleanLabels(arr) {
-  let newArr = [];
-  // Loop through label array
-  for(let i = 0; i < arr.length; i++) {
-    // Push Reformatted label sets to new arr
-    let set = arr[i];
-    newArr.push(set.replace(/;/g, '<br>'));
-  };
-  return newArr;
+function cleanLabels(dirty_arr) {
+  let clean_arr = Array.from(
+    dirty_arr, labels => labels.replace(/;/g, '<br>')
+  );
+  return clean_arr;
 };
 
 // RECORD COUNTS WARNINGS
