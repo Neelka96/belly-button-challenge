@@ -219,7 +219,7 @@ function barChart(json, params) {
 // -------------------
 
 // DROPDOWN BUILDER
-function buildDropDown(names_arr, target_id) {
+function buildDropDown(arr2D, target_id) {
   // Use d3 to select the dropdown with id of `#selDataset`
   let dropDown = d3.select(target_id);
   // Clear (if existing) any html
@@ -231,14 +231,20 @@ function buildDropDown(names_arr, target_id) {
 
   // For each name create an option element with that name
   // Append each one to the doc fragment
-  names_arr.forEach(name => 
+  arr2D.forEach(item => 
     {
       let opt = document.createElement('option');
-      opt.text = name;
+      opt.value = item[0];
+      opt.text = item[1];
+
+      // Check for default selection
+      if (item[2]) opt.setAttribute(item[2], true);
+
+      // Append each option to fragment
       frag.appendChild(opt);
     }
   );
-  // Append the document fragment to the dropdown menu
+  // Append the whole document fragment to the dropdown menu
   dropDown.node().appendChild(frag);
 
   return null;
@@ -315,9 +321,20 @@ function init() {
       // Get the names field
       let names = data.names;
 
-      // Build DropDown Menu
-      // Use the list of sample names to populate the select options
-      buildDropDown(names, '#selDataset');
+      // Build DropDown Menus
+      // --------------------
+      // Use the list of sample names and alg. calculated array to populate `select`
+      // Using user defined function requires populating in 2 dimensional array
+      let names_2d = names.map(name => [name, name]);
+      buildDropDown(names_2d, '#selDataset');
+      
+      // Building option tab for bar chart limit (dropdown)
+      // Building in 2D for [values, text] to be displayed
+      let options = [5, 10, 15, 20, 25, 30];
+      options = options.map(opt => [opt, `Top ${opt}`]);
+      options.push(['all', 'All']);
+      options[1].push('selected');
+      buildDropDown(options, '#barLimit');
 
       // Get the first sample from the list
       let firstSample = names[0];
