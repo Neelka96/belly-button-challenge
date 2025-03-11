@@ -1,5 +1,6 @@
 // app.js - Belly Button Biodiversity Dashboard
 
+
 // RECORD COUNTS WARNINGS
 function displayWarnings(total, numberToShow, alert_id) {
   // d3 select html targets
@@ -148,6 +149,9 @@ function barChart(json, params) {
   displayWarnings(_length, limit, '#alert-box');
 
   // Capping limit for proper displaying of max data limits
+  // Now if a limit greater than the length is requested the 
+  //    the length is shown instead (along with the text title)
+  //    as though 'All' was selected
   if (limit > _length) limit = _length;
 
   // Format Arrays for Barchart
@@ -267,8 +271,18 @@ function buildMetadata(sampleNum, json) {
   // Use `.html("") to clear any existing metadata
   panel.html('');
 
+  // Edge case: user typed or selected an invalid ID
+  if (!metadata) {
+    panel.html(`
+      <div class="alert alert-danger" role="alert">
+        No matching subject ID found!
+      </div>
+    `);
+    return null;
+  };
+
   // Inside a loop, you will need to use d3 to append new
-  // tags for each key-value in the filtered metadata.      
+  // tags for each key-value in the filtered metadata.
   let text = '';
   for(let [key, value] of Object.entries(metadata)) {
     text += `${key.toUpperCase()}: ${value}<br>`;
@@ -288,6 +302,13 @@ function buildCharts(sampleNum, json) {
     if (entry.id == sampleNum) return entry;
   });
   sample = sample[0];
+
+  // No matching sample, handle gracefully
+  if (!sample) {
+    Plotly.newPlot('bar', [], {});
+    Plotly.newPlot('bubble', [], {});
+    return null;
+  };
 
   // Additional Parameters
   let params = {
@@ -315,7 +336,7 @@ function init() {
     {
       // Store Full JSON for rebuilding plot later
       globalJSON = data;
-
+      
       // Get the names field
       let names = data.names;
 
