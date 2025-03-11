@@ -158,13 +158,18 @@ function barChart(json, params) {
   let slicedIDs = ids.slice(0, limit).map(id => `OTU ${id}`);
   let slicedLabels = labels.slice(0, limit);
 
+  // Reverse arrays in place
+  slicedIDs.reverse();
+  slicedValues.reverse();
+  slicedLabels.reverse();
+
   // Build a Bar Chart
   let trace = {
-    x: slicedValues.reverse(),
-    y: slicedIDs.reverse(),
+    x: slicedValues,
+    y: slicedIDs,
     type: 'bar',
     orientation: 'h',
-    hovertext: cleanLabels(slicedLabels.reverse()),
+    hovertext: cleanLabels(slicedLabels),
     hovertemplate: 
       'Count: <b>%{x}</b><br>' + 
       '---------------<br>' +
