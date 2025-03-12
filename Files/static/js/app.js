@@ -13,7 +13,7 @@ function hideLoader(target_id = '#loader') {
   d3.select(target_id).classed('d-none', true);
 };
 
-// LABEL FIXER
+// LABEL CLEANER
 function cleanLabels(dirty_arr) {
   let clean_arr = [];
   for (let label_set of dirty_arr) {
@@ -21,6 +21,11 @@ function cleanLabels(dirty_arr) {
   }
   return clean_arr;
 };
+
+// LOCATION CLEANER
+function cleanLocation(location) {
+  return null;
+}
 
 // RECORD COUNTS WARNINGS
 function displayWarnings(total, numberToShow, alert_id) {
@@ -294,13 +299,48 @@ function buildMetadata(sampleNum, json) {
     return null;
   };
 
-  // Inside a loop, you will need to use d3 to append new
+  // Inside a loop, append new elements to doc frag with
   // tags for each key-value in the filtered metadata.
-  let text = '';
+  let frag = document.createDocumentFragment();
+  
   for(let [key, value] of Object.entries(metadata)) {
-    text += `${key.toUpperCase()}: ${value}<br>`;
+    // Create an empty span for each key and value
+    let key_span = document.createElement('span');
+    let val_span = document.createElement('span');
+    
+    key = key.toLowerCase();
+    if (value) {
+      if (key == 'gender') {
+        value = value.toUpperCase();
+      }
+      else if (key == 'location') {
+        if (value.length > 2) {
+          value = value.replace(/[\s,/]/g, ', ')
+            .replace(/([\.a-z])([A-Z])/, '$1 $2');
+            // .replace(/( [A-Z]{2,3})$/, ', $1');
+        }
+      }
+      else if (key == 'bbtype') {
+        if ( /i/i.test(value) ) value = 'Innie'
+        else if ( /o/i.test(value) ) value = 'Outie';
+      }
+    }
+    else {
+      value = 'N/A';
+    };
+
+    key_span.id = key;
+    key_span.textContent = key.toUpperCase() + ': ';
+    key_span.setAttribute('value', value);
+    val_span.textContent = value;
+
+    frag.appendChild(key_span).appendChild(val_span);
+    frag.appendChild(document.createElement('br'));
+
+    
   };
-  panel.append('div').html(text);
+  panel.node().appendChild(frag);
+
 
   return null;
 };
