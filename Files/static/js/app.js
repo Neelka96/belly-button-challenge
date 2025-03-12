@@ -1,5 +1,18 @@
 // app.js - Belly Button Biodiversity Dashboard
 
+// -- HELPER FUNCTIONS --
+// ----------------------
+
+// ACTIVATE LOADER
+function showLoader(target_id = '#loader') {
+  d3.select(target_id).classed('d-none', false);
+};
+
+// DEACTIVATE LOADER
+function hideLoader(target_id = '#loader') {
+  d3.select(target_id).classed('d-none', true);
+};
+
 // LABEL FIXER
 function cleanLabels(dirty_arr) {
   let clean_arr = [];
@@ -77,6 +90,7 @@ function displayWarnings(total, numberToShow, alert_id) {
 
 // -- CHART TRACERS --
 // -------------------
+
 // BUBBLE CHART BUILD
 function bubbleChart(json, params) {
   // Build a Bubble Chart
@@ -330,6 +344,10 @@ let globalJSON = null;
 
 // Function to run on page load
 function init() {
+  // Show loader while page loads
+  showLoader();
+
+  // Core API, metadata, and chart building call
   const json_api = 'https://static.bc-edx.com/data/dl-1-2/m14/lms/starter/samples.json'; 
   d3.json(json_api).then(data => 
     {
@@ -360,6 +378,9 @@ function init() {
       // Build charts and metadata panel with the first sample
       buildMetadata(firstSample, data);
       buildCharts(firstSample, data);
+      
+      // Hide loader now that everything is finished
+      hideLoader();
     }
   );
   return 0;
@@ -370,10 +391,14 @@ function init() {
 
 // Event when changing the subject ID selection
 function sampleChange(newSampleNum) {
+  // Utilize loader functions again
+  showLoader();
+
   // Build charts and metadata panel each time a new sample is selected
   // Use globally stored JSON instead of making another API call
   buildMetadata(newSampleNum, globalJSON);
   buildCharts(newSampleNum, globalJSON);
+  hideLoader();
 };
 
 // Event when hitting the random subject ID button
