@@ -1,5 +1,13 @@
 // app.js - Belly Button Biodiversity Dashboard
 
+// LABEL FIXER
+function cleanLabels(dirty_arr) {
+  let clean_arr = [];
+  for (let label_set of dirty_arr) {
+    clean_arr.push(label_set.replace(/;/g, '<br>'));
+  }
+  return clean_arr;
+};
 
 // RECORD COUNTS WARNINGS
 function displayWarnings(total, numberToShow, alert_id) {
@@ -69,12 +77,6 @@ function displayWarnings(total, numberToShow, alert_id) {
 
 // -- CHART TRACERS --
 // -------------------
-
-// LABEL FIXER
-function cleanLabels(dirty_arr) {
-  return dirty_arr.map(labels => labels.replace(/;/g, '<br>'));
-};
-
 // BUBBLE CHART BUILD
 function bubbleChart(json, params) {
   // Build a Bubble Chart
@@ -89,13 +91,13 @@ function bubbleChart(json, params) {
       colorscale: 'Viridis'
     },
     hovertext: cleanLabels(json.otu_labels),
-    hovertemplate: `
-      ID #: <b>%{x}</b><br>
-      Count: <b>%{y}</b><br>
-      -----------------<br>
-      %{hovertext}
-      <extra></extra>
-  `};
+    hovertemplate:
+      'ID #: <b>%{x}</b><br>' +
+      'Count: <b>%{y}</b><br>' +
+      '-----------------<br>' +
+      '%{hovertext}' +
+      '<extra></extra>'
+  };
 
   // Build Bubble Chart Layout
   let layout = {
@@ -173,12 +175,12 @@ function barChart(json, params) {
     type: 'bar',
     orientation: 'h',
     hovertext: cleanLabels(slicedLabels),
-    hovertemplate: `
-      Count: <b>%{x}</b><br>
-      ---------------<br>
-      %{hovertext}
-      <extra></extra>
-  `};
+    hovertemplate: 
+      'Count: <b>%{x}</b><br>' +
+      '---------------<br>' +
+      '%{hovertext}' +
+      '<extra></extra>'
+  };
   
   // Cond'l Title Text
   let titleText = '';
@@ -233,19 +235,18 @@ function buildDropDown(arr2D, target_id) {
 
   // For each name create an option element with that name
   // Append each one to the doc fragment
-  arr2D.forEach(item => 
-    {
-      let opt = document.createElement('option');
-      opt.value = item[0];
-      opt.text = item[1];
+  for (let item of arr2D) {
+    let opt = document.createElement('option');
+    opt.value = item[0];
+    opt.text = item[1];
 
-      // Check for default selection
-      if (item[2]) opt.setAttribute(item[2], true);
+    // Check for default selection
+    if (item[2]) opt.setAttribute(item[2], true);
 
-      // Append each option to fragment
-      frag.appendChild(opt);
-    }
-  );
+    // Append each option to fragment
+    frag.appendChild(opt);
+  };
+
   // Append the whole document fragment to the dropdown menu
   dropDown.node().appendChild(frag);
 
@@ -258,12 +259,10 @@ function buildMetadata(sampleNum, json) {
   let metadata = json.metadata;
 
   // Filter the metadata for the object with the desired sample number
-  metadata = metadata.filter(entry => 
-    {
-      if (entry.id == sampleNum) 
-        return entry;
-    }
-  )[0];
+  metadata = metadata.filter(entry => {
+    if (entry.id == sampleNum) return entry;
+  });
+  metadata = metadata[0];
 
   // Use d3 to select the panel with id of `#sample-metadata`
   let panel = d3.select('#sample-metadata');
@@ -381,8 +380,7 @@ function sampleChange(newSampleNum) {
 function randomSelect() {
   // Randomly select index from array
   let ids = globalJSON.names;
-  let index = Math.floor(Math.random() * ids.length);
-  let rand = ids[index];
+  let rand = ids[Math.floor(Math.random() * ids.length)];
   
   // Call page builder for new option selection
   sampleChange(rand);
@@ -430,8 +428,7 @@ function colorChange(element) {
     for (let token of oldColor.split(' ')) {
       element.classed(token, false);
     };
-  };
-
+  }
   // Add new colors
   for (let token of newColor.split(' ')) {
     element.classed(token, true);
