@@ -1,0 +1,17 @@
+/* Custom Style Sheet (currently for favicon library)
+/* aka. 'Font Awesome Icons' */
+
+.fa {
+    padding: 10px;
+    font-size: 40px;
+    width: 50px;
+    /* text-align: center; */
+    text-decoration: none;
+    position: relative;
+    left: 625px;
+    top: 50px;
+}
+
+.fa:hover {
+    opacity: 0.7;
+}
