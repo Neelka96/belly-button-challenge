@@ -116,7 +116,14 @@ BellyButtonBiodiversity/
 6. Optionally, click **“Subject ID Randomizer”** to see a random subject.  
 7. Adjust the **“Number of Bars to Show”** dropdown to see fewer/more bar segments.
 
-> **Note:** If data is being fetched from a local `samples.json`, ensure that file is present in the correct relative path or served via local server (some browsers block local JSON fetch for security).
+<h3>OR!</h3>  
+
+1. Visit the GitHub Page to visit the tool preloaded in your web-browser by [clicking here!](https://neelka96.github.io/belly-button-challenge/)  
+2. You can also explore more information about how this tool was set up in [this section](#github-pages-deployment) of the README!  
+
+> [!NOTE]  
+> If data is being fetched from a local `samples.json`, ensure that file is present in the correct relative path  
+> or served via local server (some browsers block local JSON fetch for security).
 
 ---
 
@@ -143,6 +150,35 @@ BellyButtonBiodiversity/
    - Control the loading spinner overlay for a smoother UX.  
 
 Feel free to explore these functions in `app.js` and adapt them for your future projects.
+
+---
+
+## GitHub Pages Deployment
+
+This project is also hosted via **GitHub Pages**, allowing anyone to view the interactive dashboard directly in their browser without cloning or running a local server. Here’s how you can check it out—or set it up yourself if you haven’t already:
+
+1. **View Live Dashboard**  
+   - You can access the deployed dashboard at [**YourGitHubUsername.github.io/YourRepoName**](https://YourGitHubUsername.github.io/YourRepoName).  
+   - Once there, you’ll see the homepage (`index.html`) loaded with the interactive charts.
+
+2. **How to Deploy on GitHub Pages**  
+   + **Push Code to GitHub**: Make sure your `index.html`, `app.js`, and other files are on your main branch.  
+   + **Enable Pages**:  
+      - Go to your repository’s **Settings** tab on GitHub.  
+      - In the left-hand menu, click on **Pages**.  
+      - Under **Source**, choose the branch you want to deploy (e.g., `main`) and the `/root` folder.  
+      - Click **Save**.  
+   + **Wait for Build**: It may take a minute or two for GitHub to build the site. Once successful, you’ll see a green bar with the URL of your hosted site.  
+   + **Visit the Deployed Dashboard**: Click or navigate to the URL (e.g., `https://YourGitHubUsername.github.io/YourRepoName`) to see the live site.
+
+3. **Updating the Deployment**  
+   - Whenever you push additional commits to the chosen branch, GitHub automatically rebuilds and updates your Pages site.  
+   - Just wait a minute or two for changes to propagate, then refresh your live URL.
+
+4. **Notes**  
+   - GitHub Pages only serves static content. Your JavaScript and data files should be relative paths in your HTML (e.g., `./static/js/app.js` or similar) to ensure everything loads correctly.  
+   - If using local JSON or other data, ensure it’s included in the repository and references in `app.js` or HTML with a relative file path.  
+   - If you run into CORS issues or “404 Not Found,” double-check spelling, capitalization, and folder organization.
 
 ---
 
