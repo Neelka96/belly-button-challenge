@@ -316,8 +316,8 @@ function buildMetadata(sampleNum, json) {
       else if (key == 'location') {
         if (value.length > 2) {
           value = value.replace(/[\s,/]/g, ', ')
-            .replace(/([\.a-z])([A-Z])/, '$1 $2');
-            // .replace(/( [A-Z]{2,3})$/, ', $1');
+            .replace(/([\.a-z])([A-Z])/, '$1 $2')
+            .replace(/(?<!,)(?:\s)([A-Z]{2})$/, ', $1');
         }
       }
       else if (key == 'bbtype') {
@@ -456,10 +456,19 @@ function randomSelect() {
   return null;
 };
 
+// Event Helper Function to return current color scheme
+function getCurrentColor(selection, colors) {
+  // Compare each arr element to find the old colors
+  for (let colorScheme of colors) {
+    let tokens = colorScheme.split(' ');
+    if (tokens.every(token => selection.classed(token))) {
+      return colorScheme;
+    };
+  };
+};
+
 // Event to change colors on certain pressables
 function colorChange(element) {
-  // Convert element to d3 selection
-  element = d3.select(element);
   // Set list of colors (in bootstrap)
   let colors = [
     'bg-success text-white',
@@ -471,33 +480,35 @@ function colorChange(element) {
     'bg-light',
     'bg-dark text-white'
   ];
-
-  // Compare each arr element to find the old colors
-  let oldColor = '';
-  for (let color of colors) {
-    let tokens = color.split(' ');
-    if (tokens.every(token => element.classed(token))) {
-      oldColor = color;
-      break;
-    };
-  };
+  let selection = d3.select(element);
 
   // Randomly select a color and then ensure it's new
+  let oldColor = getCurrentColor(selection, colors);
   let newColor = '';
   do {
     newColor = colors[Math.floor(Math.random() * colors.length)];
   } while (newColor == oldColor);
 
-  // Remove old colors
-  if (oldColor) {
-    for (let token of oldColor.split(' ')) {
-      element.classed(token, false);
-    };
-  }
-  // Add new colors
-  for (let token of newColor.split(' ')) {
-    element.classed(token, true);
-  };
+  // Grab all linked color elements
+  let links = d3.selectAll('.linked-color');
+
+  // Modify each one
+  links.each(function() {
+      // Select current element
+      let sel = d3.select(this);
+
+      // Remove old colors
+      for (let colorSchema of colors) {
+        for (let token of colorSchema.split(' ')) {
+          sel.classed(token, false);
+        };
+      };
+      // Add new colors
+      for (let token of newColor.split(' ')) {
+        sel.classed(token, true);
+      };
+    }
+  );
 
   return null;
 };
