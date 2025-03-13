@@ -13,7 +13,8 @@
 5. [Usage Instructions](#usage-instructions)
 6. [Technologies Used](#technologies-used)
 7. [Key Functions & Code Notes](#key-functions--code-notes)
-8. [References and Citations](#references-and-citations)
+8. [GitHub Pages Deployment](#github-pages-deployment)  
+9. [References and Citations](#references-and-citations)
 
 ---
 
