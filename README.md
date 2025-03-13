@@ -143,6 +143,8 @@ BellyButtonBiodiversity/
 - **Plotly.js**  
 - **Bootstrap 5**  
 - (Optional) **fetch / d3.json** for data loading  
+- (Optional) **Bootstrap Bundle** for custom shading and boxing
+- (Optional) **Awesome Font's Favicon CSS Library**  
 
 [:arrow_up: Return to TOC](#table-of-contents)  
 
@@ -203,6 +205,7 @@ This project is also hosted via **GitHub Pages**, allowing anyone to view the in
 - **Plotly.js Official Docs**: [https://plotly.com/javascript/](https://plotly.com/javascript/)  
 - **D3.js** Documentation: [https://d3js.org/](https://d3js.org/)  
 - **Bootstrap** Documentation: [https://getbootstrap.com/](https://getbootstrap.com/)  
+- **Font Awesome** Documentation: [https://fontawesome.com/v4/](https://fontawesome.com/v4/)
 - **Random** code snippets for event handling, arrow functions, etc., derived from [MDN Web Docs](https://developer.mozilla.org/) and personal experience.  
 
 [:arrow_up: Return to TOC](#table-of-contents)  
