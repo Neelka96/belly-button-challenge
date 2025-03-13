@@ -59,6 +59,8 @@ Below are the core requirements (as stated or implied by the Module 14 Challenge
    - **Implementation:**  
        - This document provides an overview of all the above features, instructions, and references.
 
+[:arrow_up: Return to TOC](#table-of-contents)  
+
 ---
 
 ## Enhancements and Extra Features
@@ -80,7 +82,9 @@ In addition to the rubric requirements, the following enhancements go **beyond**
    - Some elements dynamically change color or background on click, providing a more interactive and modern user experience.
 
 6. **Optimized Code Structure**  
-   - The code is split into smaller, reusable helper functions (e.g., `cleanLabels()`, `buildDropDown()`, etc.) for maintainability.
+   - The code is split into smaller, reusable helper functions (e.g., `cleanLabels()`, `buildDropDown()`, etc.) for maintainability.  
+
+[:arrow_up: Return to TOC](#table-of-contents)  
 
 ---
 
@@ -104,7 +108,9 @@ BellyButtonBiodiversity/
 - **`index.html`**  
    - Contains the webpage structure, layout with Bootstrap columns, dropdowns, and `<div>` placeholders for charts.  
 - **`app.js`**  
-   - The main JavaScript logic. Connects to the JSON data, populates dropdowns, updates charts, and displays the demographic info.
+   - The main JavaScript logic. Connects to the JSON data, populates dropdowns, updates charts, and displays the demographic info.  
+
+[:arrow_up: Return to TOC](#table-of-contents)  
 
 ---
 
@@ -126,6 +132,8 @@ BellyButtonBiodiversity/
 > If data is being fetched from a local `samples.json`, ensure that file is present in the correct relative path  
 > or served via local server (some browsers block local JSON fetch for security).
 
+[:arrow_up: Return to TOC](#table-of-contents)  
+
 ---
 
 ## Technologies Used
@@ -134,7 +142,9 @@ BellyButtonBiodiversity/
 - **D3.js v7**  
 - **Plotly.js**  
 - **Bootstrap 5**  
-- (Optional) **fetch / d3.json** for data loading
+- (Optional) **fetch / d3.json** for data loading  
+
+[:arrow_up: Return to TOC](#table-of-contents)  
 
 ---
 
@@ -150,7 +160,9 @@ BellyButtonBiodiversity/
 - **`showLoader()` / `hideLoader()`**  
    - Control the loading spinner overlay for a smoother UX.  
 
-Feel free to explore these functions in `app.js` and adapt them for your future projects.
+Feel free to explore these functions in `app.js` and adapt them for your future projects.  
+
+[:arrow_up: Return to TOC](#table-of-contents)  
 
 ---
 
@@ -159,7 +171,7 @@ Feel free to explore these functions in `app.js` and adapt them for your future 
 This project is also hosted via **GitHub Pages**, allowing anyone to view the interactive dashboard directly in their browser without cloning or running a local server. Here’s how you can check it out—or set it up yourself if you haven’t already:
 
 1. **View Live Dashboard**  
-   - You can access the deployed dashboard at [**YourGitHubUsername.github.io/YourRepoName**](https://YourGitHubUsername.github.io/YourRepoName).  
+   - You can access the deployed dashboard at [https://neelka96.github.io/belly-button-challenge/](https://neelka96.github.io/belly-button-challenge/).  
    - Once there, you’ll see the homepage (`index.html`) loaded with the interactive charts.
 
 2. **How to Deploy on GitHub Pages**  
@@ -181,11 +193,16 @@ This project is also hosted via **GitHub Pages**, allowing anyone to view the in
    - If using local JSON or other data, ensure it’s included in the repository and references in `app.js` or HTML with a relative file path.  
    - If you run into CORS issues or “404 Not Found,” double-check spelling, capitalization, and folder organization.
 
+[:arrow_up: Return to TOC](#table-of-contents)  
+
 ---
 
 ## References and Citations
 - **edX/2U** Bootcamp materials for the “Belly Button Biodiversity” dataset and assignment instructions.  
+- **README.md**: Created using OpenAI's [ChatGPT LLM](https://www.chatgpt.com), trained using prior READMEs, all the deliverables, and the provided rubric given by edX/2U  
 - **Plotly.js Official Docs**: [https://plotly.com/javascript/](https://plotly.com/javascript/)  
 - **D3.js** Documentation: [https://d3js.org/](https://d3js.org/)  
 - **Bootstrap** Documentation: [https://getbootstrap.com/](https://getbootstrap.com/)  
-- **Random** code snippets for event handling, arrow functions, etc., derived from [MDN Web Docs](https://developer.mozilla.org/) and personal experience.
+- **Random** code snippets for event handling, arrow functions, etc., derived from [MDN Web Docs](https://developer.mozilla.org/) and personal experience.  
+
+[:arrow_up: Return to TOC](#table-of-contents)  
