@@ -7,23 +7,30 @@
 
 ## Table of Contents
 1. [Project Description](#project-description)
-2. [Assignment/Rubric Requirements](#assignmentrubric-requirements)
-3. [Enhancements and Extra Features](#enhancements-and-extra-features)
-4. [File and Directory Structure](#file-and-directory-structure)
-5. [Usage Instructions](#usage-instructions)
-6. [Technologies Used](#technologies-used)
-7. [Key Functions & Code Notes](#key-functions--code-notes)
-8. [GitHub Pages Deployment](#github-pages-deployment)  
-9. [References and Citations](#references-and-citations)
+2. [Assignment Requirements](#assignment-requirements)
+   - [Base Rubric](#base-rubric)
+   - [Enhancements & Extra Features](#enhancements--extra-features)
+3. [Directory Structure](#directory-structure)
+   - [Directory Tree](#directory-tree)
+   - [Key Files](#key-files)
+4. [Usage Instructions](#usage-instructions)
+   - [Technologies Used](#technologies-used)
+5. [Key Functions & Code Notes](#key-functions--code-notes)
+6. [GitHub Pages Deployment](#github-pages-deployment)  
+7. [References and Citations](#references-and-citations)
 
 ---
 
 ## Project Description
-This repository contains an interactive dashboard that explores the **Belly Button Biodiversity** dataset. The goal is to visualize the bacteria found in human belly buttons by subject ID, displaying both a bar chart of the top bacterial species and a bubble chart of all bacterial cultures. This assignment deviates from typical Python-focused projects by relying primarily on **JavaScript, HTML, and CSS** (plus libraries like **D3.js** and **Plotly.js**) to create a dynamic web-based visualization experience.
+This repository contains an interactive dashboard that explores the **Belly Button Biodiversity** dataset. The goal is to visualize the bacteria found in human belly buttons by subject ID, displaying both a bar chart of the top bacterial species and a bubble chart of all bacterial cultures. This assignment deviates from typical Python-focused projects by relying primarily on **JavaScript, HTML, and CSS** (plus libraries like **D3.js** and **Plotly.js**) to create a dynamic web-based visualization experience. While this project goes beyond the basic requirements for this module, it doesn't interfere with the fulfillment of any of those requirements in creating extra functionality.
 
 ---
 
-## Assignment/Rubric Requirements
+## Assignment Requirements
+The assignment's base requirements and extra features are separated and summarized in the section below!  
+
+
+### Base Rubric
 Below are the core requirements (as stated or implied by the Module 14 Challenge rubric) and how each one is addressed in this project:
 
 1. **Create a Horizontal Bar Chart**  
@@ -59,11 +66,8 @@ Below are the core requirements (as stated or implied by the Module 14 Challenge
    - **Implementation:**  
        - This document provides an overview of all the above features, instructions, and references.
 
-[:arrow_up: Return to TOC](#table-of-contents)  
 
----
-
-## Enhancements and Extra Features
+### Enhancements & Extra Features
 In addition to the rubric requirements, the following enhancements go **beyond** the minimal scope:
 
 1. **Random Subject Selector**  
@@ -84,12 +88,23 @@ In addition to the rubric requirements, the following enhancements go **beyond**
 6. **Optimized Code Structure**  
    - The code is split into smaller, reusable helper functions (e.g., `cleanLabels()`, `buildDropDown()`, etc.) for maintainability.  
 
+7. **Regex Text Cleaning**
+   - The demographic info is cleaned before presentation per each request for new data, to allow for consistent presentation and potential storage of data.
+
+8. **More CSS Libraries**
+   - Introduced CSS libraries to enhance existing Bootstrap styling and create favicon icons.
+
+
 [:arrow_up: Return to TOC](#table-of-contents)  
+
 
 ---
 
-## File and Directory Structure
-Below is a simplified view of the project layout. You may adjust folder names to suit your preferences:
+
+## Directory Structure
+
+### Directory Tree
+Below is a simplified view of the project layout:
 
 ```
 BellyButtonBiodiversity/
@@ -98,19 +113,20 @@ BellyButtonBiodiversity/
 ├── static/
 │   └── js/
 │       └── app.js
-├── data/
-│   └── samples.json     (Not included in this repo but assumed per instructions)
-├── README.md            (This file)
-└── .gitignore           (if applicable)
+│
+├── README.md
+└── .gitignore
 ```
 
-**Key Files**  
+### Key Files  
 - **`index.html`**  
    - Contains the webpage structure, layout with Bootstrap columns, dropdowns, and `<div>` placeholders for charts.  
 - **`app.js`**  
    - The main JavaScript logic. Connects to the JSON data, populates dropdowns, updates charts, and displays the demographic info.  
 
+
 [:arrow_up: Return to TOC](#table-of-contents)  
+
 
 ---
 
@@ -132,11 +148,7 @@ BellyButtonBiodiversity/
 > If data is being fetched from a local `samples.json`, ensure that file is present in the correct relative path  
 > or served via local server (some browsers block local JSON fetch for security).
 
-[:arrow_up: Return to TOC](#table-of-contents)  
-
----
-
-## Technologies Used
+### Technologies Used
 - **JavaScript (ES6+)**  
 - **HTML5 / CSS3**  
 - **D3.js v7**  
@@ -146,7 +158,9 @@ BellyButtonBiodiversity/
 - (Optional) **Bootstrap Bundle** for custom shading and boxing
 - (Optional) **Awesome Font's Favicon CSS Library**  
 
+
 [:arrow_up: Return to TOC](#table-of-contents)  
+
 
 ---
 
@@ -164,7 +178,9 @@ BellyButtonBiodiversity/
 
 Feel free to explore these functions in `app.js` and adapt them for your future projects.  
 
+
 [:arrow_up: Return to TOC](#table-of-contents)  
+
 
 ---
 
@@ -195,7 +211,9 @@ This project is also hosted via **GitHub Pages**, allowing anyone to view the in
    - If using local JSON or other data, ensure it’s included in the repository and references in `app.js` or HTML with a relative file path.  
    - If you run into CORS issues or “404 Not Found,” double-check spelling, capitalization, and folder organization.
 
+
 [:arrow_up: Return to TOC](#table-of-contents)  
+
 
 ---
 
@@ -205,7 +223,8 @@ This project is also hosted via **GitHub Pages**, allowing anyone to view the in
 - **Plotly.js Official Docs**: [https://plotly.com/javascript/](https://plotly.com/javascript/)  
 - **D3.js** Documentation: [https://d3js.org/](https://d3js.org/)  
 - **Bootstrap** Documentation: [https://getbootstrap.com/](https://getbootstrap.com/)  
-- **Font Awesome** Documentation: [https://fontawesome.com/v4/](https://fontawesome.com/v4/)
+- **Font Awesome** Documentation: [https://fontawesome.com/v4/](https://fontawesome.com/v4/)  
 - **Random** code snippets for event handling, arrow functions, etc., derived from [MDN Web Docs](https://developer.mozilla.org/) and personal experience.  
+
 
 [:arrow_up: Return to TOC](#table-of-contents)  
